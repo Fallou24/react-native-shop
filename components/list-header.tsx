@@ -1,17 +1,19 @@
 import { CATEGORIES } from "@/assets/categories";
+import { useCartStore } from "@/store/cart-store";
 import { FontAwesome } from "@expo/vector-icons";
 import { Link } from "expo-router";
 import {
-    FlatList,
-    Image,
-    Pressable,
-    StyleSheet,
-    Text,
-    TouchableOpacity,
-    View,
+  FlatList,
+  Image,
+  Pressable,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
 } from "react-native";
 
 export const ListHeader = () => {
+  const { getItemCount } = useCartStore();
   return (
     <View style={[styles.headerContainer]}>
       <View style={styles.headerTop}>
@@ -36,7 +38,9 @@ export const ListHeader = () => {
                     style={{ marginRight: 15, opacity: pressed ? 0.5 : 1 }}
                   />
 
-                  <View style={styles.badgeContainer}></View>
+                  <View style={styles.badgeContainer}>
+                    <Text style={styles.badgeText}>{getItemCount()}</Text>
+                  </View>
                 </View>
               )}
             </Pressable>
