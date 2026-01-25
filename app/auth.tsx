@@ -22,7 +22,10 @@ export default function Auth() {
 
   async function signInWithEmail() {
     setLoading(true);
-    const { error } = await supabase.auth.signInWithPassword({
+    const {
+      error,
+      data: { session },
+    } = await supabase.auth.signInWithPassword({
       email: email,
       password: password,
     });

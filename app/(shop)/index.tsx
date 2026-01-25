@@ -1,9 +1,24 @@
 import { PRODUCTS } from "@/assets/products";
 import { ListHeader } from "@/components/list-header";
 import { ProductListItem } from "@/components/product-list-item";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { FlatList, StyleSheet, View } from "react-native";
 
 export default function Index() {
+  const queryClient = useQueryClient();
+
+  const { data } = useQuery({
+    queryKey: ["products"],
+    queryFn: async () => {
+      const response = await fetch("https://fakestoreapi.com/products");
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      return response.json();
+    },
+  });
+  console.log(data);
+
   return (
     <View>
       <FlatList
